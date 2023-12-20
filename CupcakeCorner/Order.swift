@@ -36,4 +36,20 @@ class Order {
         }
         return true
     }
+    
+    var cost: Decimal {
+        var cost = Decimal(quantity) * 2
+        
+        cost += (Decimal(type) / 2)
+        
+        if extraFrosting {
+            cost += Decimal(quantity)
+        }
+        
+        if addSprinkles {
+            cost += Decimal(quantity) / 2
+        }
+        
+        return cost
+    }
 }
