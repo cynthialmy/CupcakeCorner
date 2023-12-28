@@ -11,6 +11,14 @@ import CoreHaptics
 struct ContentView: View {
     @State private var order = Order()
     
+    init() {
+            if let loadedOrder = Order.loadFromUserDefaults() {
+                _order = State(initialValue: loadedOrder) //  interact with _order to set up the initial state.
+            } else {
+                _order = State(initialValue: Order())
+            }
+        }
+    
     var body: some View {
         NavigationStack {
             Form {

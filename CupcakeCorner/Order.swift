@@ -9,6 +9,7 @@ import Foundation
 
 @Observable
 class Order: Codable {
+    
     enum CodingKeys: String, CodingKey {
         case _type = "type"
         case _quantity = "quantity"
@@ -66,5 +67,22 @@ class Order: Codable {
         }
         
         return cost
+    }
+    
+    // save the order to UserDefaults
+    func saveToUserDefaults() {
+        if let encoded = try? JSONEncoder().encode(self) {
+            UserDefaults.standard.set(encoded,forKey: "SavedOrder")
+        }
+    }
+    
+    // load order from UserDefaults
+    static func loadFromUserDefaults() -> Order? {
+        if let savedOrder = UserDefaults.standard.object(forKey: "SavedOrder") as? Data {
+            if let decodedOrder = try? JSONDecoder().decode(Order.self, from: savedOrder) {
+                return decodedOrder
+            }
+        }
+        return nil
     }
 }
