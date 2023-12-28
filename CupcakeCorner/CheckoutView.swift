@@ -31,6 +31,8 @@ struct CheckoutView: View {
             showingConfirmation = true
         } catch {
             print("Checkout failed: \(error.localizedDescription)")
+            confirmationMessage = "Checkout failed: \(error.localizedDescription)"
+            showingConfirmation = true
         }
         
     }
